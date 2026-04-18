@@ -4,6 +4,7 @@ const app = express();
 app.use(express.json());
 
 const CATALOG_URL = 'http://localhost:3001';
+const ORDER_URL = 'http://localhost:3002';
 
 app.get('/search/:topic', async (req, res) => {
   const topic = req.params.topic;
@@ -24,6 +25,20 @@ app.get('/info/:id', async (req, res) => {
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ error: "Could not reach catalog service" });
+  }
+});
+
+app.post('/purchase/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const response = await axios.post(`${ORDER_URL}/purchase/${id}`);
+    res.json(response.data);
+  } catch (error) {
+    if (error.response) {
+      res.status(error.response.status).json(error.response.data);
+    } else {
+      res.status(500).json({ error: "Could not reach order service" });
+    }
   }
 });
 

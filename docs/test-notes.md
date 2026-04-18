@@ -17,3 +17,24 @@ curl http://localhost:3001/info/99
 # Result: returned empty response 
 
 # All catalog endpoints working correctly
+
+
+
+
+## Testing Round 2 — Full Flow
+
+# Test 1: Search through frontend
+curl http://localhost:3000/search/distributed%20systems
+# Result: returned books 1 and 2 with id and title only 
+
+# Test 2: Info through frontend
+curl http://localhost:3000/info/2
+# Result: returned full book details 
+
+# Test 3: Purchase through frontend
+curl -X POST http://localhost:3000/purchase/2
+# Result: Successfully purchased "RPCs for Noobs" 
+
+# Test 4: Verify stock decreased
+curl http://localhost:3000/info/2
+# Result: stock went from 3 to 2 
