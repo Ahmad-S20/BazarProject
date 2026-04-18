@@ -38,3 +38,19 @@ curl -X POST http://localhost:3000/purchase/2
 # Test 4: Verify stock decreased
 curl http://localhost:3000/info/2
 # Result: stock went from 3 to 2 
+
+
+## Testing Round 3 — Persistence
+
+# Test 1: Buy a book
+curl -X POST http://localhost:3000/purchase/2
+# Result: Successfully purchased 
+
+# Test 2: Check stock
+curl http://localhost:3000/info/2
+# Result: stock = 2 
+
+# Test 3: Restart catalog server, check stock again
+curl http://localhost:3000/info/2
+# Result: stock still = 2, not reset to 3 
+# Persistence is working correctly
