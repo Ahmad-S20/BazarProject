@@ -8,7 +8,7 @@ curl http://localhost:3001/search/distributed%20systems
 curl http://localhost:3001/search/undergraduate%20school
 ## Result: returned books 3 and 4 
 
-# Test 3: Get info on book 2
+## Test 3: Get info on book 2
 curl http://localhost:3001/info/2
 ## Result: returned full details (title, topic, price, stock) 
 
@@ -54,3 +54,20 @@ curl http://localhost:3000/info/2
 curl http://localhost:3000/info/2
 ## Result: stock still = 2, not reset to 3 
 ## Persistence is working correctly
+
+
+
+# Testing Round 4 — Restocking
+
+## Set restock timer to 10 seconds for testing
+## Buy book 4 until out of stock
+curl -X POST http://localhost:3000/purchase/4
+curl -X POST http://localhost:3000/purchase/4
+curl -X POST http://localhost:3000/purchase/4
+## Result: third attempt returned "Out of stock" ✅
+
+## Wait 10 seconds for restock timer
+curl http://localhost:3000/info/4
+## Result: stock increased by 2 automatically ✅
+
+## Changed timer back to 60 seconds for production

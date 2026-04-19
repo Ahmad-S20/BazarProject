@@ -67,7 +67,7 @@ setInterval(() => {
   });
   saveBooks(books);
   console.log("Restock complete:", books.map(b => `${b.title}: ${b.stock}`));
-}, 60000);
+}, 6000);
 
 app.listen(3001, () => {
   console.log("Catalog Service running on http://localhost:3001");
