@@ -59,6 +59,16 @@ app.post('/update/:id', (req, res) => {
   }
 });
 
+setInterval(() => {
+  console.log("Restocking all books...");
+  books = loadBooks();
+  books.forEach(book => {
+    book.stock += 2;
+  });
+  saveBooks(books);
+  console.log("Restock complete:", books.map(b => `${b.title}: ${b.stock}`));
+}, 60000);
+
 app.listen(3001, () => {
   console.log("Catalog Service running on http://localhost:3001");
 });
