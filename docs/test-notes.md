@@ -64,10 +64,10 @@ curl http://localhost:3000/info/2
 curl -X POST http://localhost:3000/purchase/4
 curl -X POST http://localhost:3000/purchase/4
 curl -X POST http://localhost:3000/purchase/4
-## Result: third attempt returned "Out of stock" ✅
+## Result: third attempt returned "Out of stock"
 
 ## Wait 10 seconds for restock timer
 curl http://localhost:3000/info/4
-## Result: stock increased by 2 automatically ✅
+## Result: stock increased by 2 automatically
 
 ## Changed timer back to 60 seconds for production
