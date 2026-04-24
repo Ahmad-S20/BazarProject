@@ -3,8 +3,8 @@ const axios = require('axios');
 const app = express();
 app.use(express.json());
 
-const CATALOG_URL = 'http://localhost:3001';
-const ORDER_URL = 'http://localhost:3002';
+const CATALOG_URL = process.env.CATALOG_URL || 'http://localhost:3001';
+const ORDER_URL = process.env.ORDER_URL || 'http://localhost:3002';
 
 app.get('/search/:topic', async (req, res) => {
   const topic = req.params.topic;

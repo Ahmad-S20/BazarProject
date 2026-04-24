@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 const ORDER_LOG = 'orders.txt';
-const CATALOG_URL = 'http://localhost:3001';
+const CATALOG_URL = process.env.CATALOG_URL || 'http://localhost:3001';
 
 app.post('/purchase/:id', async (req, res) => {
   const id = parseInt(req.params.id);
