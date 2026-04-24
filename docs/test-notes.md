@@ -71,3 +71,19 @@ curl http://localhost:3000/info/4
 ## Result: stock increased by 2 automatically
 
 ## Changed timer back to 60 seconds for production
+
+# Testing Round 5 — Docker
+
+## Test 1: Search through Docker
+curl http://localhost:3000/search/distributed%20systems
+## Result: returned books 1 and 2 
+
+## Test 2: Purchase through Docker
+curl -X POST http://localhost:3000/purchase/2
+## Result: Successfully purchased "RPCs for Noobs" 
+
+## Test 3: Verify stock decreased
+curl http://localhost:3000/info/2
+## Result: stock decreased by 1 
+
+## All 3 containers communicating correctly 
