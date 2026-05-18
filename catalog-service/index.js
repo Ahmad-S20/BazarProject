@@ -67,7 +67,7 @@ setInterval(() => {
   });
   saveBooks(books);
   console.log("Restock complete:", books.map(b => `${b.title}: ${b.stock}`));
-}, 6000);
+}, 60000000); // Restock every 6 seconds for testing purposes (6000 ms = 6 seconds)
 
 app.listen(3001, () => {
   console.log("Catalog Service running on http://localhost:3001");
