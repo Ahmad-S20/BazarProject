@@ -87,3 +87,18 @@ curl http://localhost:3000/info/2
 ## Result: stock decreased by 1 
 
 ## All 3 containers communicating correctly 
+
+
+# Testing Round 6 — Load Balancing and Cache
+
+## Test 1: Load balancing - send same request twice
+curl http://localhost:3000/info/1
+curl http://localhost:3000/info/1
+## Result: first request went to replica 1, second served from cache 
+
+## Test 2: Search cache
+curl http://localhost:3000/search/distributed%20systems
+curl http://localhost:3000/search/distributed%20systems
+## Result: first request hit catalog, second served from cache 
+
+## Frontend terminal showed Cache MISS then Cache HIT 

@@ -62,7 +62,8 @@ app.get('/search/:topic', async (req, res) => {
   const cacheKey = `search_${topic}`;
 
   const cached = getFromCache(cacheKey);
-  if (cached) return res.json(cached);
+  if (cached) {console.log(`found cached result for topic: ${topic}`);
+    return res.json(cached);}
 
   try {
     const response = await axios.get(`${getCatalogURL()}/search/${topic}`);
