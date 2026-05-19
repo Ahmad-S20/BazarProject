@@ -102,3 +102,16 @@ curl http://localhost:3000/search/distributed%20systems
 ## Result: first request hit catalog, second served from cache 
 
 ## Frontend terminal showed Cache MISS then Cache HIT 
+
+
+# Testing Round 7 — Cache Invalidation and Replica Sync
+
+## Test 1: Get info (cached), then buy, then get info again
+curl http://localhost:3000/info/2              # Cache MISS, saved to cache
+curl -X POST http://localhost:3000/purchase/2  # Cache invalidated
+curl http://localhost:3000/info/2              # Cache MISS, fresh data fetched 
+
+## Test 2: Check both replicas have same stock
+curl http://localhost:3001/info/2
+curl http://localhost:3003/info/2
+## Result: both show same stock number 
