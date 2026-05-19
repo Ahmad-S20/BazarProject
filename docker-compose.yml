@@ -1,11 +1,20 @@
-version: '3'
-
 services:
 
   catalog-service:
     build: ./catalog-service
     ports:
       - "3001:3001"
+    environment:
+      - FRONTEND_URL=http://frontend-service:3000
+      - REPLICA_URL=http://catalog-service-2:3003
+
+  catalog-service-2:
+    build: ./catalog-service-2
+    ports:
+      - "3003:3003"
+    environment:
+      - FRONTEND_URL=http://frontend-service:3000
+      - REPLICA_URL=http://catalog-service:3001
 
   order-service:
     build: ./order-service
@@ -16,13 +25,26 @@ services:
     depends_on:
       - catalog-service
 
+  order-service-2:
+    build: ./order-service-2
+    ports:
+      - "3004:3004"
+    environment:
+      - CATALOG_URL=http://catalog-service-2:3003
+    depends_on:
+      - catalog-service-2
+
   frontend-service:
     build: ./frontend-service
     ports:
       - "3000:3000"
     environment:
-      - CATALOG_URL=http://catalog-service:3001
-      - ORDER_URL=http://order-service:3002
+      - CATALOG_URL_1=http://catalog-service:3001
+      - CATALOG_URL_2=http://catalog-service-2:3003
+      - ORDER_URL_1=http://order-service:3002
+      - ORDER_URL_2=http://order-service-2:3004
     depends_on:
       - catalog-service
+      - catalog-service-2
       - order-service
+      - order-service-2
