@@ -89,7 +89,7 @@ app.post('/sync/:id', (req, res) => {
 });
 
 setInterval(async () => {
-  console.log("Restocking all books...");
+  console.log("\nRestocking all books...");
   books = loadBooks();
   books.forEach(book => {
     book.stock += 2;
@@ -101,9 +101,14 @@ setInterval(async () => {
     } catch (err) {
       console.log(`Could not invalidate cache for book ${book.id}:`, err.message);
     }
+    try {
+      await axios.post(`${REPLICA_URL}/sync/${book.id}`, { stock: book.stock });
+    } catch (err) {
+      console.log(`Could not sync book ${book.id} with replica:`, err.message);
+    }
   }
-  console.log("Restock complete:", books.map(b => `${b.title}: ${b.stock}`));
-}, 60000000);// Restock every 6 seconds for testing purposes (6000 ms = 6 seconds)
+  //console.log("Restock complete:", books.map(b => `${b.title}: ${b.stock}`));
+},60000);// (6000 ms = 6 seconds)
 
 app.listen(3001, () => {
   console.log("Catalog Service running on http://localhost:3001");

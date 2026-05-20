@@ -89,23 +89,6 @@ app.post('/sync/:id', (req, res) => {
   }
 });
 
-setInterval(async () => {
-  console.log("Restocking all books...");
-  books = loadBooks();
-  books.forEach(book => {
-    book.stock += 2;
-  });
-  saveBooks(books);
-  for (const book of books) {
-    try {
-      await axios.post(`${FRONTEND_URL}/invalidate/${book.id}`);
-    } catch (err) {
-      console.log(`Could not invalidate cache for book ${book.id}:`, err.message);
-    }
-  }
-  console.log("Restock complete:", books.map(b => `${b.title}: ${b.stock}`));
-}, 60000000);// Restock every 6 seconds for testing purposes (6000 ms = 6 seconds)
-
 app.listen(3003, () => {
   console.log("Catalog Service running on http://localhost:3003");
 });

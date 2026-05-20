@@ -30,7 +30,7 @@ function getOrderURL() {
 }
 
 // **************************************************************
-// ---- IN-MEMORY CACHE ----
+
 const cache = {};
 function getFromCache(key) {
   if (cache[key]) {
